@@ -1,3 +1,6 @@
+# Exclude authors product and development methodologies
+guardrails/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
