@@ -1,0 +1,6 @@
+[submodule "vendor/chaps"]
+	path = vendor/chaps
+	url = https://github.com/cutaway-security/chaps.git
+[submodule "vendor/hotcakex"]
+	path = vendor/hotcakex
+	url = https://github.com/HotCakeX/Harden-Windows-Security.git
