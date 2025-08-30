@@ -1,0 +1,80 @@
+{
+  "FamilyConfiguration": {
+    "Users": {
+      "Children": ["TestChild1", "TestChild2"]
+    }
+  },
+  "PolicyConfiguration": {
+    "UserAccountSecurity": {
+      "PasswordPolicy": {
+        "MinLength": 8,
+        "MaxAge": 90
+      },
+      "AccountLockout": {
+        "Threshold": 5,
+        "Duration": 30
+      },
+      "ScreenSaver": {
+        "TimeoutSeconds": 900
+      }
+    },
+    "NetworkSecurity": {
+      "WindowsFirewall": {
+        "AllowedApplications": []
+      },
+      "ProtocolRestrictions": {
+        "DisabledProtocols": ["NETBIOS"]
+      },
+      "DNSFiltering": {
+        "Enabled": true,
+        "SafeDNSServers": ["208.67.222.222"]
+      },
+      "NetworkDiscovery": { "Enabled": false },
+      "ProxySettings": { "Enabled": false },
+      "RemoteAccess": { "AllowWinRM": false },
+      "NetworkLocation": { "ForcePublic": true }
+    },
+    "ApplicationControl": {
+      "WDAC": {
+        "Enabled": true,
+        "AllowedApplications": []
+      },
+      "AppLocker": {
+        "Enabled": true,
+        "ExecutableRules": {
+          "Enabled": true,
+          "Rules": []
+        },
+        "ScriptRules": {
+          "Enabled": false,
+          "Rules": []
+        }
+      },
+      "BrowserRestrictions": {
+        "ForceEdgeAsDefault": true,
+        "BlockAlternativeBrowsers": true
+      },
+      "DevelopmentTools": {
+        "Enabled": false,
+        "AllowedTools": []
+      },
+      "Gaming": {
+        "OptimizeForGaming": true,
+        "DefenderExclusions": {
+          "Enabled": false,
+          "Paths": []
+        }
+      },
+      "SystemUtilities": {
+        "RestrictedUtilities": []
+      },
+      "FileAssociations": {
+        "SecureAssociations": []
+      },
+      "InstallationRestrictions": {
+        "RestrictNonAdminInstalls": true,
+        "TrustedInstallerPaths": []
+      }
+    }
+  }
+}
