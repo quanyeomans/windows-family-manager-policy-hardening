@@ -1,0 +1,95 @@
+# Pre-commit hooks for Windows Family Manager Policy Hardening
+# Ensures code quality and contract validation before commits
+
+repos:
+  # Built-in hooks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-json
+      - id: check-merge-conflict
+      - id: check-case-conflict
+
+  # Python code quality  
+  - repo: https://github.com/psf/black
+    rev: 24.8.0
+    hooks:
+      - id: black
+        language_version: python3
+        files: ^tests/.*\.py$
+
+  # PowerShell script analysis
+  - repo: local
+    hooks:
+      - id: powershell-script-analyzer
+        name: PowerShell Script Analyzer
+        entry: powershell
+        args: ["-Command", "Invoke-ScriptAnalyzer", "-Path", "src/", "-Recurse", "-ExcludeRule", "PSAvoidUsingWriteHost"]
+        language: system
+        files: \.ps1$
+        pass_filenames: false
+
+  # Contract tests - CRITICAL for interface stability
+  - repo: local
+    hooks:
+      - id: contract-tests
+        name: PowerShell-Python Contract Tests
+        entry: pytest
+        args: ["tests/contracts/", "-v", "--tb=short"]
+        language: python
+        pass_filenames: false
+        always_run: false
+        files: ^(tests/contracts/.*\.py|src/.*\.ps1)$
+
+  # Critical security contract tests
+  - repo: local  
+    hooks:
+      - id: security-contracts
+        name: Security Boundary Contract Tests
+        entry: powershell
+        args: ["-Command", "Invoke-Pester", "tests/security-contracts/", "-Tag", "Critical"]
+        language: system
+        pass_filenames: false
+        always_run: false
+        files: ^(tests/security-contracts/.*\.ps1|src/.*\.ps1)$
+
+  # Unit tests for core functionality
+  - repo: local
+    hooks:
+      - id: unit-tests
+        name: Unit Tests
+        entry: pytest
+        args: ["tests/unit/", "-v", "--tb=short"]
+        language: python
+        pass_filenames: false
+        files: ^tests/unit/.*\.py$
+
+# Global configuration
+fail_fast: true
+default_stages: [commit]
+
+# Optional: Additional stages for more comprehensive validation
+default_install_hook_types: [pre-commit, pre-push]
+
+# Pre-push hooks (more comprehensive, slower)
+repos:
+  - repo: local
+    hooks:
+      - id: integration-tests
+        name: Integration Tests (Pre-push)
+        entry: pytest
+        args: ["tests/integration/", "--integration", "-v"]
+        language: python
+        stages: [pre-push]
+        pass_filenames: false
+
+      - id: bdd-scenario-validation  
+        name: BDD Scenario Validation (Pre-push)
+        entry: pytest
+        args: ["tests/features/", "--bdd", "-v"]
+        language: python
+        stages: [pre-push] 
+        pass_filenames: false

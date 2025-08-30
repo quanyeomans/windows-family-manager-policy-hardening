@@ -1,0 +1,186 @@
+# GitHub Actions workflow for contract validation
+# Ensures interface stability on every push and pull request
+
+name: Contract Validation Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - 'tests/contracts/**'
+      - 'tests/security-contracts/**' 
+      - 'src/**/*.ps1'
+      - '.github/workflows/contract-validation.yml'
+  
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'tests/contracts/**'
+      - 'tests/security-contracts/**'
+      - 'src/**/*.ps1'
+
+  # Allow manual workflow dispatch
+  workflow_dispatch:
+    inputs:
+      test_level:
+        description: 'Test level to run'
+        required: true
+        default: 'contracts'
+        type: choice
+        options:
+        - contracts
+        - security
+        - full
+
+jobs:
+  contract-validation:
+    runs-on: windows-latest
+    timeout-minutes: 15
+
+    strategy:
+      matrix:
+        python-version: [3.11, 3.12]
+        powershell-version: [7.4]
+
+    steps:
+    # Environment setup
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Set up PowerShell ${{ matrix.powershell-version }}
+      shell: pwsh
+      run: |
+        Write-Host "PowerShell Version: $($PSVersionTable.PSVersion)"
+        Write-Host "Execution Policy: $(Get-ExecutionPolicy)"
+
+    # Install dependencies
+    - name: Install Python dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements-test.txt
+        pip install pytest-json-report pytest-html
+
+    - name: Install PowerShell modules
+      shell: pwsh
+      run: |
+        Install-Module -Name Pester -Force -SkipPublisherCheck -Scope CurrentUser
+        Install-Module -Name PSScriptAnalyzer -Force -SkipPublisherCheck -Scope CurrentUser
+        
+    # Run contract validation
+    - name: Run Contract Validation Pipeline
+      shell: pwsh
+      run: |
+        Write-Host "Starting contract validation pipeline..."
+        ./scripts/validate-contracts.ps1 -Verbose -OutputFormat "JUnit"
+      continue-on-error: false
+
+    # Upload test results
+    - name: Upload Contract Test Results
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: contract-test-results-python${{ matrix.python-version }}
+        path: |
+          contract-validation-results.xml
+          contract-results.json
+        retention-days: 30
+
+    # Publish test results to GitHub
+    - name: Publish Contract Test Results
+      uses: dorny/test-reporter@v1
+      if: always()
+      with:
+        name: Contract Validation Results (Python ${{ matrix.python-version }})
+        path: contract-validation-results.xml
+        reporter: java-junit
+        fail-on-error: true
+
+    # Run additional security validation for main branch
+    - name: Extended Security Validation
+      if: github.ref == 'refs/heads/main'
+      shell: pwsh
+      run: |
+        Write-Host "Running extended security validation for main branch..."
+        Invoke-Pester tests/security-contracts/ -Tag @('Critical', 'High') -PassThru
+        
+  # Integration test job (runs after contract validation)
+  integration-validation:
+    runs-on: windows-latest
+    needs: contract-validation
+    if: github.event_name == 'pull_request' || (github.event_name == 'workflow_dispatch' && github.event.inputs.test_level == 'full')
+    timeout-minutes: 20
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python 3.12
+      uses: actions/setup-python@v5
+      with:
+        python-version: 3.12
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements-test.txt
+
+    - name: Run Integration Tests
+      run: |
+        python -m pytest tests/integration/ --integration -v --tb=short --html=integration-report.html --self-contained-html
+
+    - name: Upload Integration Test Report
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: integration-test-report
+        path: integration-report.html
+        retention-days: 14
+
+  # Deployment readiness check
+  deployment-readiness:
+    runs-on: windows-latest
+    needs: [contract-validation, integration-validation]
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    timeout-minutes: 10
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Deployment Readiness Assessment
+      shell: pwsh
+      run: |
+        Write-Host "🚀 Assessing deployment readiness..." -ForegroundColor Cyan
+        
+        # Verify all critical contracts pass
+        $contractStatus = ./scripts/validate-contracts.ps1 -OutputFormat "JSON" | ConvertFrom-Json
+        
+        if ($contractStatus.overall_status -eq "PASSED") {
+            Write-Host "✅ All contracts validated - deployment ready" -ForegroundColor Green
+            echo "DEPLOYMENT_READY=true" >> $env:GITHUB_OUTPUT
+        } else {
+            Write-Host "❌ Contract validation failed - deployment blocked" -ForegroundColor Red
+            echo "DEPLOYMENT_READY=false" >> $env:GITHUB_OUTPUT
+            exit 1
+        }
+
+    outputs:
+      deployment-ready: ${{ steps.assessment.outputs.DEPLOYMENT_READY }}
+
+# Notification on failure
+  notify-failure:
+    runs-on: windows-latest
+    needs: [contract-validation, integration-validation]
+    if: failure()
+    
+    steps:
+    - name: Notify Contract Validation Failure
+      run: |
+        echo "❌ Contract validation pipeline failed"
+        echo "This indicates potential interface instability or security boundary violations"
+        echo "Review the test results and ensure all contracts pass before proceeding"

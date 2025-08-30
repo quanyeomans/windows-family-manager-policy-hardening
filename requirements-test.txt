@@ -1,0 +1,31 @@
+# Testing Framework Dependencies
+# BDD Testing Framework
+pytest>=7.4.0
+pytest-bdd>=7.0.0
+behave>=1.2.6
+gherkin-official>=23.0.1
+
+# Streamlit Testing (when available)
+streamlit>=1.28.0
+pandas>=2.0.0
+plotly>=5.17.0
+
+# Integration Testing Support
+requests>=2.31.0
+subprocess-mock>=0.3.0
+
+# Test Utilities
+pytest-mock>=3.11.1
+pytest-asyncio>=0.21.1
+pytest-cov>=4.1.0
+pytest-xdist>=3.3.1  # Parallel test execution
+pytest-html>=3.2.0   # HTML test reports
+
+# Contract Testing Support
+jsonschema>=4.19.0
+pydantic>=2.0.0
+
+# Development Dependencies
+black>=23.7.0
+flake8>=6.0.0
+mypy>=1.5.0

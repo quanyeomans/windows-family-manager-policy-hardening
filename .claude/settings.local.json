@@ -4,7 +4,12 @@
       "Bash(dir:*)",
       "Bash(powershell:*)",
       "Bash(git submodule add:*)",
-      "Bash(del test-config.json test-policy-script.ps1)"
+      "Bash(del test-config.json test-policy-script.ps1)",
+      "WebSearch",
+      "Bash(python:*)",
+      "Bash(pytest:*)",
+      "Bash(del test-debug.ps1)",
+      "Bash(Remove-Item test-debug.ps1)"
     ],
     "deny": [],
     "ask": []
