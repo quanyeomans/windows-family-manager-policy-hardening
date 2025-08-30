@@ -72,10 +72,10 @@ try {
         }
     }
 
-    # 3. Unit Tests - Core functionality validation
-    Write-Host "`n[3/3] Running Unit Tests..." -ForegroundColor Blue
+    # 3. Unit Tests - Core functionality validation with coverage
+    Write-Host "`n[3/3] Running Unit Tests with Coverage..." -ForegroundColor Blue
     
-    $unitResult = & pytest tests/unit/ -v --tb=short 2>&1
+    $unitResult = & pytest tests/unit/ -v --tb=short --cov=src --cov-report=term-missing --cov-fail-under=80 2>&1
     $unitExitCode = $LASTEXITCODE
     
     if ($unitExitCode -eq 0) {

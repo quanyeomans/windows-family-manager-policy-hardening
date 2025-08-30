@@ -1,29 +1,53 @@
 # Testing Framework Dependencies
-# BDD Testing Framework
+# Updated with comprehensive unit test coverage requirements
+
+# Core Testing Framework
 pytest>=7.4.0
 pytest-bdd>=7.0.0
+pytest-mock>=3.11.1
+pytest-asyncio>=0.21.1
+
+# Unit Test Coverage and Reporting (CRITICAL)
+pytest-cov>=4.1.0
+coverage>=7.3.0
+pytest-html>=3.2.0
+pytest-json-report>=1.5.0
+pytest-benchmark>=4.0.0  # Performance testing
+unittest-xml-reporting>=3.2.0  # JUnit XML reports
+
+# BDD Testing Support
 behave>=1.2.6
 gherkin-official>=23.0.1
 
-# Streamlit Testing (when available)
+# Streamlit Admin Interface Testing
 streamlit>=1.28.0
+streamlit-authenticator>=0.2.3
 pandas>=2.0.0
 plotly>=5.17.0
 
 # Integration Testing Support
 requests>=2.31.0
 subprocess-mock>=0.3.0
-
-# Test Utilities
-pytest-mock>=3.11.1
-pytest-asyncio>=0.21.1
-pytest-cov>=4.1.0
-pytest-xdist>=3.3.1  # Parallel test execution
-pytest-html>=3.2.0   # HTML test reports
+responses>=0.23.0  # HTTP mocking
 
 # Contract Testing Support
 jsonschema>=4.19.0
 pydantic>=2.0.0
+
+# Mock and Fixture Support
+freezegun>=1.2.2  # Time mocking
+factory-boy>=3.3.0  # Test data factories
+parameterized>=0.9.0  # Parameterized tests
+
+# Property-based Testing
+hypothesis>=6.88.0  # Property-based testing for algorithms
+
+# PowerShell Integration Testing
+pywin32>=306  # Windows-specific PowerShell integration
+psutil>=5.9.0  # Process monitoring
+
+# Parallel Test Execution
+pytest-xdist>=3.3.1
 
 # Development Dependencies
 black>=23.7.0
