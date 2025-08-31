@@ -1,0 +1,80 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "vendor", "vendor", "{3EFB08DA-2EA9-FE77-18DF-C4D4293AFD9C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "hotcakex", "hotcakex", "{D17BCD28-F9AF-888B-6D25-E7EA32E753C4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppControl Manager", "vendor\hotcakex\AppControl Manager\AppControl Manager.csproj", "{E1AD6BF1-F752-D02F-477E-5AB4B896D185}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Harden System Security", "vendor\hotcakex\Harden System Security\Harden System Security.csproj", "{A07A426A-645A-820E-7FE4-AEFB8D086D57}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Harden Windows Security", "vendor\hotcakex\Harden-Windows-Security Module\Harden Windows Security.csproj", "{DB7C4FA9-9AF3-AD5E-9899-38F46C25F921}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AppControl Manager (1)", "AppControl Manager (1)", "{E5D618F8-E4B7-0020-B2EB-776FB6ECE152}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "eXclude", "eXclude", "{BB4E3883-35A9-631A-0DCC-1B000692ED63}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonCore", "vendor\hotcakex\AppControl Manager\eXclude\CommonCore\CommonCore.csproj", "{720B5330-4DA4-3462-3F9D-DE25E2898E81}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DISMService", "vendor\hotcakex\AppControl Manager\eXclude\DISMService\DISMService.csproj", "{AAF43570-AFB0-1663-FA93-749344026218}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PartnerCenter", "vendor\hotcakex\AppControl Manager\eXclude\PartnerCenter\PartnerCenter.csproj", "{8DF2190E-081C-EDE8-7903-5E95153D2752}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuantumRelay", "vendor\hotcakex\AppControl Manager\eXclude\QuantumRelay\QuantumRelay.csproj", "{27FE557F-37CA-5D69-808B-6C00955C89D6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E1AD6BF1-F752-D02F-477E-5AB4B896D185}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1AD6BF1-F752-D02F-477E-5AB4B896D185}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1AD6BF1-F752-D02F-477E-5AB4B896D185}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1AD6BF1-F752-D02F-477E-5AB4B896D185}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A07A426A-645A-820E-7FE4-AEFB8D086D57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A07A426A-645A-820E-7FE4-AEFB8D086D57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A07A426A-645A-820E-7FE4-AEFB8D086D57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A07A426A-645A-820E-7FE4-AEFB8D086D57}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB7C4FA9-9AF3-AD5E-9899-38F46C25F921}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB7C4FA9-9AF3-AD5E-9899-38F46C25F921}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB7C4FA9-9AF3-AD5E-9899-38F46C25F921}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB7C4FA9-9AF3-AD5E-9899-38F46C25F921}.Release|Any CPU.Build.0 = Release|Any CPU
+		{720B5330-4DA4-3462-3F9D-DE25E2898E81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{720B5330-4DA4-3462-3F9D-DE25E2898E81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{720B5330-4DA4-3462-3F9D-DE25E2898E81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{720B5330-4DA4-3462-3F9D-DE25E2898E81}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AAF43570-AFB0-1663-FA93-749344026218}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAF43570-AFB0-1663-FA93-749344026218}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAF43570-AFB0-1663-FA93-749344026218}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAF43570-AFB0-1663-FA93-749344026218}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DF2190E-081C-EDE8-7903-5E95153D2752}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DF2190E-081C-EDE8-7903-5E95153D2752}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DF2190E-081C-EDE8-7903-5E95153D2752}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DF2190E-081C-EDE8-7903-5E95153D2752}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27FE557F-37CA-5D69-808B-6C00955C89D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27FE557F-37CA-5D69-808B-6C00955C89D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27FE557F-37CA-5D69-808B-6C00955C89D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27FE557F-37CA-5D69-808B-6C00955C89D6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D17BCD28-F9AF-888B-6D25-E7EA32E753C4} = {3EFB08DA-2EA9-FE77-18DF-C4D4293AFD9C}
+		{E1AD6BF1-F752-D02F-477E-5AB4B896D185} = {D17BCD28-F9AF-888B-6D25-E7EA32E753C4}
+		{A07A426A-645A-820E-7FE4-AEFB8D086D57} = {D17BCD28-F9AF-888B-6D25-E7EA32E753C4}
+		{DB7C4FA9-9AF3-AD5E-9899-38F46C25F921} = {D17BCD28-F9AF-888B-6D25-E7EA32E753C4}
+		{E5D618F8-E4B7-0020-B2EB-776FB6ECE152} = {D17BCD28-F9AF-888B-6D25-E7EA32E753C4}
+		{BB4E3883-35A9-631A-0DCC-1B000692ED63} = {E5D618F8-E4B7-0020-B2EB-776FB6ECE152}
+		{720B5330-4DA4-3462-3F9D-DE25E2898E81} = {BB4E3883-35A9-631A-0DCC-1B000692ED63}
+		{AAF43570-AFB0-1663-FA93-749344026218} = {BB4E3883-35A9-631A-0DCC-1B000692ED63}
+		{8DF2190E-081C-EDE8-7903-5E95153D2752} = {BB4E3883-35A9-631A-0DCC-1B000692ED63}
+		{27FE557F-37CA-5D69-808B-6C00955C89D6} = {BB4E3883-35A9-631A-0DCC-1B000692ED63}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {07DB1695-9A82-4FF2-B088-858657D4C56A}
+	EndGlobalSection
+EndGlobal

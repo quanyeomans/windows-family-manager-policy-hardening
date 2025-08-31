@@ -347,7 +347,7 @@ class TestPowerShellIntegrationPatterns:
         """Sanitize PowerShell parameters for security."""
         sanitized = {}
         
-        dangerous_patterns = ['; ', '&& ', '|| ', '| ', '` ', '$', '(', ')']
+        dangerous_patterns = ['; ', '&& ', '|| ', '| ', '` ', '$', '(', ')', ';', 'Drop-Database', 'Remove-Item']
         
         for key, value in params.items():
             sanitized_value = str(value)

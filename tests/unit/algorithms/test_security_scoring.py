@@ -444,16 +444,11 @@ class TestRiskAssessmentAlgorithms:
         # Sort by risk score (highest first)
         prioritized_threats = sorted(threats, key=lambda t: t["risk_score"], reverse=True)
         
-        # Test prioritization order
+        # Test prioritization order (recalculated: 8×9=72, 9×5=45, 6×7=42, 4×10=40)
         assert prioritized_threats[0]["name"] == "UAC Bypass"  # 8×9 = 72
-        assert prioritized_threats[1]["name"] == "WiFi Password Crack"  # 6×7 = 42
-        assert prioritized_threats[2]["name"] == "Time Manipulation"  # 9×5 = 45
+        assert prioritized_threats[1]["name"] == "Time Manipulation"  # 9×5 = 45  
+        assert prioritized_threats[2]["name"] == "WiFi Password Crack"  # 6×7 = 42
         assert prioritized_threats[3]["name"] == "Admin Account Creation"  # 4×10 = 40
-        
-        # Actually, let me recalculate: Time Manipulation (45) should be higher than WiFi (42)
-        assert prioritized_threats[1]["name"] == "Time Manipulation"  # 45
-        assert prioritized_threats[2]["name"] == "WiFi Password Crack"  # 42
-        assert prioritized_threats[3]["name"] == "Admin Account Creation"  # 40
     
     def test_remediation_effort_calculation(self):
         """Test remediation effort calculation for prioritization."""
